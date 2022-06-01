@@ -20,7 +20,7 @@ import sys
 from argparse import Namespace
 from contextlib import contextmanager, ExitStack, redirect_stdout
 from io import StringIO
-from typing import List, Optional, Union
+from typing import Callable, List, Optional, Union
 from unittest import mock
 from unittest.mock import ANY
 
@@ -1577,3 +1577,17 @@ def test_cli_trainer_no_callbacks():
             BoringModel, run=False, trainer_class=MyTrainer, trainer_defaults={"callbacks": MyCallback()}
         )
     assert not any(isinstance(cb, MyCallback) for cb in cli.trainer.callbacks)
+
+
+def test_unresolvable_import_paths():
+    class TestModel(BoringModel):
+        def __init__(self, a_func: Callable = torch.softmax):
+            super().__init__()
+            self.a_func = a_func
+
+    out = StringIO()
+    with mock.patch("sys.argv", ["any.py", "--print_config"]), redirect_stdout(out), pytest.raises(SystemExit):
+        LightningCLI(TestModel, run=False)
+
+    assert "a_func: torch.softmax" in out.getvalue()
+
