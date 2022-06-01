@@ -1590,4 +1590,3 @@ def test_unresolvable_import_paths():
         LightningCLI(TestModel, run=False)
 
     assert "a_func: torch.softmax" in out.getvalue()
-
