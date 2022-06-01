@@ -107,7 +107,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt --find-links https://download.pytorch.org/whl/cpu/torch_stable.html --quiet
+        pip install -r requirements.txt --find-links https://download.pytorch.org/whl/cpu/torch_stable.html --quiet --upgrade-strategy eager
         pip install awscli
 
     - name: Configure AWS credentials

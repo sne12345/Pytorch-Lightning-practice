@@ -98,9 +98,9 @@ RUN \
     python requirements/adjust-versions.py requirements/extra.txt && \
     python requirements/adjust-versions.py requirements/examples.txt && \
     # Install remaining requirements
-    pip install -r requirements/base.txt --no-cache-dir --find-links https://download.pytorch.org/whl/test/torch_test.html && \
-    pip install -r requirements/extra.txt --no-cache-dir --find-links https://download.pytorch.org/whl/test/torch_test.html && \
-    pip install -r requirements/examples.txt --no-cache-dir --find-links https://download.pytorch.org/whl/test/torch_test.html && \
+    pip install -r requirements/base.txt --no-cache-dir --find-links https://download.pytorch.org/whl/test/torch_test.html --upgrade-strategy eager && \
+    pip install -r requirements/extra.txt --no-cache-dir --find-links https://download.pytorch.org/whl/test/torch_test.html --upgrade-strategy eager && \
+    pip install -r requirements/examples.txt --no-cache-dir --find-links https://download.pytorch.org/whl/test/torch_test.html --upgrade-strategy eager && \
     rm assistant.py
 
 ENV \
@@ -117,7 +117,7 @@ ENV \
 RUN \
     HOROVOD_BUILD_CUDA_CC_LIST=${TORCH_CUDA_ARCH_LIST//";"/","} && \
     export HOROVOD_BUILD_CUDA_CC_LIST=${HOROVOD_BUILD_CUDA_CC_LIST//"."/""} && \
-    pip install --no-cache-dir -r requirements/strategies.txt
+    pip install --no-cache-dir -r requirements/strategies.txt --upgrade-strategy eager
 
 RUN \
     CUDA_VERSION_MAJOR=$(python -c "import torch ; print(torch.version.cuda.split('.')[0])") && \

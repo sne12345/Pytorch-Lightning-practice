@@ -42,9 +42,9 @@ jobs:
           pip --version
           pip install -q fire
           # python -m pip install --upgrade --user pip
-          pip install -r requirements.txt --upgrade-strategy only-if-needed --find-links https://download.pytorch.org/whl/cpu/torch_stable.html --quiet
-          pip install -r requirements/devel.txt
-          pip install -r requirements/docs.txt
+          pip install -r requirements.txt --find-links https://download.pytorch.org/whl/cpu/torch_stable.html --quiet --upgrade-strategy eager
+          pip install -r requirements/devel.txt --upgrade-strategy eager
+          pip install -r requirements/docs.txt --upgrade-strategy eager
           pip list
         shell: bash
 
@@ -83,7 +83,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y cmake pandoc
           pip --version
-          pip install --requirement requirements/docs.txt
+          pip install --requirement requirements/docs.txt --upgrade-strategy eager
           # install Texlive, see https://linuxconfig.org/how-to-install-latex-on-ubuntu-20-04-focal-fossa-linux
           sudo apt-get update && sudo apt-get install -y texlive-latex-extra dvipng texlive-pictures
           pip list

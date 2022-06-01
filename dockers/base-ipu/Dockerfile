@@ -84,8 +84,8 @@ RUN \
     python adjust_versions.py requirements-extra.txt && \
     pip install -q fire && \
     # Install remaining requirements
-    pip install -r requirements-extra.txt --no-cache-dir && \
-    pip install -r requirements-test.txt --no-cache-dir && \
+    pip install -r requirements-extra.txt --no-cache-dir --upgrade-strategy eager && \
+    pip install -r requirements-test.txt --no-cache-dir --upgrade-strategy eager && \
     rm requirements*
 
 RUN \

@@ -97,7 +97,7 @@ RUN \
     # drop unnecessary packages
     python ./requirements/adjust-versions.py ./requirements/extra.txt && \
     # install PL dependencies
-    pip install --requirement ./requirements/devel.txt --no-cache-dir && \
+    pip install --requirement ./requirements/devel.txt --no-cache-dir --upgrade-strategy eager && \
     cd .. && \
     rm -rf pytorch-lightning && \
     rm -rf /root/.cache
