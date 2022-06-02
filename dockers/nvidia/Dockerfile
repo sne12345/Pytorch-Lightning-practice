@@ -43,10 +43,10 @@ RUN \
 # Installations \
     pip install -q fire && \
     python ./pytorch-lightning/.actions/assistant.py requirements_prune_pkgs horovod --req_files ./pytorch-lightning/requirements/extra.txt  && \
-    pip install "Pillow>=8.2, !=8.3.0" "cryptography>=3.4" "py>=1.10" "protobuf>=3.15.6" --no-cache-dir --upgrade-strategy eager && \
-    pip install -r ./pytorch-lightning/requirements/extra.txt --no-cache-dir --upgrade-strategy eager && \
-    pip install -r ./pytorch-lightning/requirements/examples.txt --no-cache-dir --upgrade-strategy eager && \
-    pip install ./pytorch-lightning --no-cache-dir --upgrade-strategy eager && \
+    pip install "Pillow>=8.2, !=8.3.0" "cryptography>=3.4" "py>=1.10" "protobuf>=3.15.6" --no-cache-dir -U --upgrade-strategy eager && \
+    pip install -r ./pytorch-lightning/requirements/extra.txt --no-cache-dir -U --upgrade-strategy eager && \
+    pip install -r ./pytorch-lightning/requirements/examples.txt --no-cache-dir -U --upgrade-strategy eager && \
+    pip install ./pytorch-lightning --no-cache-dir -U --upgrade-strategy eager && \
     rm -rf pytorch-lightning && \
     pip install jupyterlab[all] -U && \
     pip list
