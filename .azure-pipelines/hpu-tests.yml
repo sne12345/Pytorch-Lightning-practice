@@ -33,6 +33,7 @@ jobs:
       displayName: 'Instance HW info'
 
     - bash: |
+        python .actions/assistant.py requirements-prune-pkgs torchtext
         pip install . --requirement requirements/extra.txt -U --upgrade-strategy eager
         pip install . --requirement requirements/test.txt -U --upgrade-strategy eager
       displayName: 'Install dependencies'
