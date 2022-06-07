@@ -67,19 +67,22 @@ jobs:
         python -c "import torch ; mgpu = torch.cuda.device_count() ; assert mgpu >= 2, f'GPU: {mgpu}'"
         python requirements/check-avail-strategies.py
         python requirements/check-avail-extras.py
-      displayName: 'Env details'
+      displayName: 'Env. details'
 
     - bash: bash .actions/pull_legacy_checkpoints.sh
       displayName: 'Get legacy checkpoints'
 
     - bash: |
         python -m coverage run --source pytorch_lightning -m pytest pytorch_lightning tests --ignore tests/benchmarks -v --junitxml=$(Build.StagingDirectory)/test-results.xml --durations=50
+      env:
+        CUDA_LAUNCH_BLOCKING: 1
       displayName: 'Testing: standard'
 
     - bash: |
         bash tests/standalone_tests.sh
       env:
         PL_USE_MOCKED_MNIST: "1"
+        CUDA_LAUNCH_BLOCKING: 1
       displayName: 'Testing: standalone'
 
     - bash: |
@@ -115,6 +118,7 @@ jobs:
         bash pl_examples/run_examples.sh --trainer.accelerator=gpu --trainer.devices=2 --trainer.strategy=ddp --trainer.precision=16
       env:
         PL_USE_MOCKED_MNIST: "1"
+        CUDA_LAUNCH_BLOCKING: 1
       displayName: 'Testing: examples'
 
     - bash: |
