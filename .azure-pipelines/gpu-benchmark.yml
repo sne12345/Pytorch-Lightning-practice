@@ -38,5 +38,4 @@ jobs:
           python -m pytest tests/benchmarks -v --durations=0
         env:
           PL_RUNNING_BENCHMARKS: 1
-          CUDA_LAUNCH_BLOCKING: 1
         displayName: 'Testing: benchmarks'
